@@ -1,0 +1,32 @@
+@mixin icon($pseudo: before, $weight: 900) {
+  &:#{$pseudo} {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: var(--fa-display, inline-block);
+    font-family: "Font Awesome 6 Free";
+    font-style: normal;
+    font-weight: $weight;
+    font-variant: normal;
+    text-rendering: auto;
+    @content;
+  }
+}
+
+@mixin icon-size($size) {
+  > i,
+  > svg {
+    @include font-size($size);
+  }
+
+  > svg {
+    width: 1em;
+    height: 1em;
+  }
+}
+
+@mixin icon-style() {
+  > svg,
+  > i {
+    @content;
+  }
+}

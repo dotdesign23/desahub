@@ -1,0 +1,58 @@
+.form-floating {
+  position: relative;
+
+  > label {
+    position: absolute;
+    color: $input-placeholder-color;
+    @include font-size($input-font-size);
+    left: add($input-padding-x, $input-border-width);
+    top: add(
+      add($input-line-height * 0.5em, $input-padding-y),
+      $input-border-width
+    );
+    background-color: transparent;
+    transform: translateY(-50%);
+    line-height: 1;
+    opacity: 1;
+    z-index: 3;
+    cursor: text;
+    @include transition($form-floating-transition);
+  }
+
+  // stylelint-disable no-duplicate-selectors
+  > .form-control,
+  > .form-select {
+    &::placeholder {
+      color: transparent;
+    }
+
+    &:focus,
+    &:not(:placeholder-shown) {
+      + label {
+        color: $input-placeholder-color;
+        background-color: $input-bg;
+        @include font-size($input-font-size * $form-floating-font-size-scale);
+        padding: $form-floating-padding-y $form-floating-padding-x;
+        top: 0;
+      }
+    }
+  }
+
+  > .form-control-lg,
+  > .form-select-lg {
+    @include form-floating-sizing(
+      $input-font-size-lg,
+      $input-padding-y-lg,
+      $input-padding-x-lg
+    );
+  }
+
+  > .form-control-sm,
+  > .form-select-sm {
+    @include form-floating-sizing(
+      $input-font-size-sm,
+      $input-padding-y-sm,
+      $input-padding-x-sm
+    );
+  }
+}

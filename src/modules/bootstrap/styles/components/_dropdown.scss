@@ -1,0 +1,187 @@
+@import "bootstrap/scss/dropdown";
+
+.dropdown {
+  --#{$prefix}dropdown-col-padding: #{$dropdown-col-padding};
+}
+
+.dropdown-menu {
+  border-style: $border-style;
+}
+
+.dropdown-divider {
+  border-top-style: $border-style;
+}
+
+// Add spacer to caret element
+.dropdown-toggle::after {
+  margin-left: $dropdown-caret-spacer;
+}
+
+// Change toggle caret in dropstart class
+.dropstart {
+  .dropdown-toggle {
+    &::after {
+      display: none;
+    }
+
+    @include caret(start, before) {
+      margin-right: $dropdown-caret-spacer;
+    }
+  }
+}
+
+.dropdown-sub {
+  position: relative;
+
+  &:hover > .dropdown-sub-menu {
+    display: block;
+  }
+}
+
+.dropdown-sub-menu {
+  @extend .dropdown-menu;
+  width: fit-content;
+  top: 0;
+}
+
+.dropdown-sub-start {
+  left: 0;
+  transform: translateX(-100%);
+}
+
+.dropdown-sub-end {
+  right: 0;
+  transform: translateX(100%);
+}
+
+.dropdown-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  margin-top: calc(-1 * $dropdown-padding-y);
+  margin-bottom: calc(-1 * $dropdown-padding-y);
+}
+
+.dropdown-col {
+  flex: 1;
+  min-width: var(--#{$prefix}dropdown-min-width, $dropdown-min-width);
+  padding: var(--#{$prefix}dropdown-col-padding, $dropdown-col-padding);
+  text-wrap: wrap;
+
+  .dropdown-item {
+    @include border-radius(
+      var(--#{$prefix}dropdown-border-radius, $dropdown-border-radius)
+    );
+  }
+}
+
+.dropdown-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.dropdown-content {
+  flex: 1;
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdown-header {
+  @include font-size(var(--#{$prefix}dropdown-font-size, $dropdown-font-size));
+}
+
+.dropdown-addon {
+  white-space: nowrap;
+
+  &:first-child {
+    margin-right: $dropdown-item-content-spacer;
+  }
+
+  &:last-child {
+    margin-left: $dropdown-item-content-spacer;
+  }
+}
+
+.dropdown-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $dropdown-icon-dimension;
+  margin-right: $dropdown-item-content-spacer;
+  @include icon-size($dropdown-icon-size);
+}
+
+.dropdown-bullet {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $dropdown-bullet-color;
+  height: $dropdown-icon-dimension;
+  width: $dropdown-icon-dimension;
+  margin-right: calc(0.75 * $dropdown-item-content-spacer);
+
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: $dropdown-bullet-size;
+    height: $dropdown-bullet-size;
+    border-radius: $dropdown-bullet-size;
+    background-color: currentColor;
+  }
+}
+
+.dropdown-menu-wide {
+  &,
+  .dropdown-col {
+    min-width: $dropdown-min-width-lg;
+  }
+}
+
+@if $enable-transitions {
+  @keyframes slideUp {
+    0% {
+      opacity: 0;
+      top: $dropdown-animation-offset;
+    }
+    100% {
+      opacity: 1;
+      top: 0;
+    }
+  }
+
+  @keyframes slideDown {
+    0% {
+      opacity: 0;
+      bottom: $dropdown-animation-offset;
+    }
+    100% {
+      opacity: 1;
+      bottom: 0;
+    }
+  }
+
+  .dropdown-menu,
+  .dropdown-sub-menu {
+    animation-duration: $dropdown-animation-duration;
+  }
+
+  // Animate dropdown menu when opened
+  .dropdown-menu-animated {
+    &[data-popper-placement^="top"] {
+      animation-name: slideDown;
+    }
+
+    .dropdown-sub-menu,
+    &[data-popper-placement^="right"],
+    &[data-popper-placement^="left"],
+    &[data-popper-placement^="bottom"] {
+      animation-name: slideUp;
+    }
+  }
+}

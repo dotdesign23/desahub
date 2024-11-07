@@ -1,0 +1,40 @@
+@import "bootstrap/scss/badge";
+
+.badge {
+  --#{$prefix}badge-bg: transparent;
+  --#{$prefix}badge-border-color: transparent;
+  --#{$prefix}badge-border: #{$badge-border-width} #{$border-style}
+    var(--#{$prefix}badge-border-color);
+
+  background-color: var(--#{$prefix}badge-bg);
+  border: var(--#{$prefix}badge-border);
+  position: relative;
+  bottom: 1px;
+}
+
+// Generate contextual modifier classes for colorizing the badge
+@each $state in map-keys($theme-colors) {
+  .badge-#{$state} {
+    --#{$prefix}badge-bg: var(--#{$prefix}#{$state});
+    --#{$prefix}badge-color: #{color-contrast(map-get($theme-colors, $state))};
+    --#{$prefix}badge-border-color: transparent;
+  }
+
+  .badge-outline-#{$state} {
+    --#{$prefix}badge-bg: transparent;
+    --#{$prefix}badge-color: var(--#{$prefix}#{$state}-text-emphasis);
+    --#{$prefix}badge-border-color: var(--#{$prefix}#{$state}-border-subtle);
+  }
+
+  .badge-subtle-#{$state} {
+    --#{$prefix}badge-bg: var(--#{$prefix}#{$state}-bg-subtle);
+    --#{$prefix}badge-color: var(--#{$prefix}#{$state}-text-emphasis);
+    --#{$prefix}badge-border-color: transparent;
+  }
+
+  .badge-text-#{$state} {
+    --#{$prefix}badge-bg: transparent;
+    --#{$prefix}badge-color: var(--#{$prefix}#{$state}-text-emphasis);
+    --#{$prefix}badge-border-color: transparent;
+  }
+}

@@ -1,0 +1,16 @@
+.footer {
+  --#{$prefix}footer-bg: #{$footer-bg};
+  --#{$prefix}footer-color: #{$footer-color};
+  --#{$prefix}footer-border-width: #{$footer-border-width};
+  --#{$prefix}footer-border-color: #{$footer-border-color};
+  --#{$prefix}footer-padding-y: #{$footer-padding-y};
+
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  color: var(--#{$prefix}footer-color);
+  background-color: var(--#{$prefix}footer-bg);
+  // border-top: var(--#{$prefix}footer-border-width) $border-style
+  //   var(--#{$prefix}footer-border-color);
+  padding: var(--#{$prefix}footer-padding-y) 0;
+}

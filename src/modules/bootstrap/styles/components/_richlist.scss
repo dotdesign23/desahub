@@ -1,0 +1,173 @@
+// Base styles
+
+.richlist {
+  --#{$prefix}richlist-item-bg: #{$richlist-item-bg};
+  --#{$prefix}richlist-item-color: #{$richlist-item-color};
+  --#{$prefix}richlist-item-padding-y: #{$richlist-item-padding-y};
+  --#{$prefix}richlist-item-padding-x: #{$richlist-item-padding-x};
+  --#{$prefix}richlist-item-spacer: #{$richlist-item-spacer};
+  --#{$prefix}richlist-border-width: #{$richlist-border-width};
+  --#{$prefix}richlist-border-color: #{$richlist-border-color};
+  --#{$prefix}richlist-border-radius: #{$richlist-border-radius};
+  @include rfs(
+    $richlist-content-font-size,
+    --#{$prefix}richlist-content-font-size
+  );
+  --#{$prefix}richlist-content-line-height: #{$richlist-content-line-height};
+  --#{$prefix}richlist-title-color: #{$richlist-title-color};
+  --#{$prefix}richlist-title-font-weight: #{$richlist-title-font-weight};
+  --#{$prefix}richlist-subtitle-color: #{$richlist-subtitle-color};
+  --#{$prefix}richlist-subtitle-font-weight: #{$richlist-subtitle-font-weight};
+  --#{$prefix}richlist-paragraph-color: #{$richlist-paragraph-color};
+  --#{$prefix}richlist-paragraph-font-weight: #{$richlist-paragraph-font-weight};
+  --#{$prefix}richlist-addon-spacer: #{$richlist-addon-spacer};
+
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  @include list-unstyled();
+}
+
+.richlist-item {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: var(--#{$prefix}richlist-item-color, $richlist-item-color);
+  background-color: var(--#{$prefix}richlist-item-bg, $richlist-item-bg);
+  padding: var(--#{$prefix}richlist-item-padding-y, $richlist-item-padding-y)
+    var(--#{$prefix}richlist-item-padding-x, $richlist-item-padding-x);
+  margin: 0;
+  cursor: default;
+  text-decoration: none !important;
+}
+
+.richlist-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.richlist-paragraph,
+.richlist-subtitle,
+.richlist-title {
+  margin: 0;
+  padding: 0;
+  @include font-size(
+    var(--#{$prefix}richlist-content-font-size, $richlist-content-font-size)
+  );
+  line-height: var(
+    --#{$prefix}richlist-content-line-height,
+    $richlist-content-line-height
+  );
+  text-align: left;
+}
+
+.richlist-title {
+  color: var(--#{$prefix}richlist-title-color, $richlist-title-color);
+  font-weight: var(
+    --#{$prefix}richlist-title-font-weight,
+    $richlist-title-font-weight
+  );
+}
+
+.richlist-subtitle {
+  color: var(--#{$prefix}richlist-subtitle-color, $richlist-subtitle-color);
+  font-weight: var(
+    --#{$prefix}richlist-subtitle-font-weight,
+    $richlist-subtitle-font-weight
+  );
+}
+
+.richlist-paragraph {
+  color: var(--#{$prefix}richlist-paragraph-color, $richlist-paragraph-color);
+  font-weight: var(
+    --#{$prefix}richlist-paragraph-font-weight,
+    $richlist-paragraph-font-weight
+  );
+}
+
+.richlist-append,
+.richlist-prepend {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  // Remove default avatar margin
+  > .avatar {
+    margin: 0;
+  }
+}
+
+.richlist-prepend {
+  margin-right: var(--#{$prefix}richlist-addon-spacer, $richlist-addon-spacer);
+}
+
+.richlist-append {
+  margin-left: var(--#{$prefix}richlist-addon-spacer, $richlist-addon-spacer);
+}
+
+// Border variations
+.richlist-flush {
+  .richlist-item + .richlist-item {
+    border-top: var(--#{$prefix}richlist-border-width, $richlist-border-width)
+      $border-style
+      var(--#{$prefix}richlist-border-color, $richlist-border-color);
+  }
+}
+
+.richlist-bordered {
+  .richlist-item {
+    border: var(--#{$prefix}richlist-border-width, $richlist-border-width)
+      $border-style
+      var(--#{$prefix}richlist-border-color, $richlist-border-color);
+    @include border-radius(
+      var(--#{$prefix}richlist-border-radius, $richlist-border-radius)
+    );
+
+    + .richlist-item {
+      margin-top: var(--#{$prefix}richlist-item-spacer, $richlist-item-spacer);
+    }
+  }
+}
+
+// Add hover, active and disabled behavior
+.richlist-action {
+  --#{$prefix}richlist-item-hover-bg: #{$richlist-item-hover-bg};
+  --#{$prefix}richlist-item-hover-color: #{$richlist-item-hover-color};
+  --#{$prefix}richlist-item-active-bg: #{$richlist-item-active-bg};
+  --#{$prefix}richlist-item-active-color: #{$richlist-item-active-color};
+  --#{$prefix}richlist-item-disabled-bg: #{$richlist-item-disabled-bg};
+
+  .richlist-item {
+    cursor: pointer;
+
+    &:focus,
+    &:hover {
+      --#{$prefix}richlist-item-bg: var(--#{$prefix}richlist-item-hover-bg);
+      --#{$prefix}richlist-item-color: var(
+        --#{$prefix}richlist-item-hover-color
+      );
+      --#{$prefix}richlist-title-color: var(--#{$prefix}richlist-item-color);
+    }
+
+    &.active,
+    &:active {
+      --#{$prefix}richlist-item-bg: var(--#{$prefix}richlist-item-active-bg);
+      --#{$prefix}richlist-item-color: var(
+        --#{$prefix}richlist-item-active-color
+      );
+      --#{$prefix}richlist-title-color: var(--#{$prefix}richlist-item-color);
+    }
+
+    &.disabled,
+    &:disabled {
+      --#{$prefix}richlist-item-bg: var(--#{$prefix}richlist-item-disabled-bg);
+
+      opacity: $richlist-item-disabled-opacity;
+      pointer-events: none;
+      cursor: default;
+    }
+  }
+}

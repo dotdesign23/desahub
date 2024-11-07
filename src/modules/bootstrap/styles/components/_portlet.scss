@@ -1,0 +1,225 @@
+// Base styles
+
+.portlet {
+  --#{$prefix}portlet-max-height: #{$portlet-max-height};
+  --#{$prefix}portlet-spacer: #{$portlet-spacer};
+  --#{$prefix}portlet-bg: #{$portlet-bg};
+  --#{$prefix}portlet-color: null;
+  --#{$prefix}portlet-border-width: #{$portlet-border-width};
+  --#{$prefix}portlet-border-color: #{$portlet-border-color};
+  --#{$prefix}portlet-border-radius: #{$portlet-border-radius};
+  --#{$prefix}portlet-component-padding: #{$portlet-component-padding};
+  --#{$prefix}portlet-component-min-height: #{$portlet-component-min-height};
+  --#{$prefix}portlet-addon-spacer: #{$portlet-addon-spacer};
+  --#{$prefix}portlet-body-color: #{$portlet-body-color};
+  --#{$prefix}portlet-icon-dimension: #{$portlet-icon-dimension};
+  @include rfs($portlet-icon-size, --#{$prefix}portlet-icon-size);
+  --#{$prefix}portlet-icon-color: #{$portlet-icon-color};
+  --#{$prefix}portlet-title-color: #{$portlet-title-color};
+  @include rfs($portlet-title-font-size, --#{$prefix}portlet-title-font-size);
+  --#{$prefix}portlet-title-font-weight: #{$portlet-title-font-weight};
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  margin-bottom: var(--#{$prefix}portlet-spacer);
+  color: var(--#{$prefix}portlet-color);
+  background-color: var(--#{$prefix}portlet-bg);
+  // border: var(--#{$prefix}portlet-border-width) $border-style
+  //   var(--#{$prefix}portlet-border-color);
+  @include border-radius(var(--#{$prefix}portlet-border-radius));
+
+  // Set border radius to first and last child elements
+  > .portlet-body,
+  > .portlet-header,
+  > .portlet-footer {
+    &:first-child {
+      @include border-top-radius(var(--#{$prefix}portlet-border-radius));
+    }
+
+    &:last-child {
+      @include border-bottom-radius(var(--#{$prefix}portlet-border-radius));
+    }
+  }
+
+  // Adjust nested portlet spacer
+  .portlet {
+    --#{$prefix}portlet-spacer: #{$portlet-spacer-sm};
+  }
+
+  // Add maximum height to .portlet-body for the scroll
+  &.portlet-scroll {
+    > .portlet-body {
+      max-height: var(--#{$prefix}portlet-max-height);
+      overflow-y: auto;
+
+      @include media-breakpoint-up("lg") {
+        --#{$prefix}portlet-max-height: #{$portlet-max-height-lg};
+      }
+      @include media-breakpoint-up("xl") {
+        --#{$prefix}portlet-max-height: #{$portlet-max-height-xl};
+      }
+    }
+  }
+}
+
+.portlet-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  min-height: var(--#{$prefix}portlet-component-min-height);
+  padding: var(--#{$prefix}portlet-component-padding);
+
+  &.portlet-header-bordered {
+    border-bottom: var(--#{$prefix}portlet-border-width) $border-style
+      var(--#{$prefix}portlet-border-color);
+
+    // Add padding to .portlet-body
+    + .portlet-body {
+      padding-top: var(--#{$prefix}portlet-component-padding);
+    }
+  }
+
+  &.portlet-header-handle {
+    cursor: move;
+  }
+}
+
+.portlet-body {
+  height: 100%;
+  padding: 0 var(--#{$prefix}portlet-component-padding)
+    var(--#{$prefix}portlet-component-padding);
+  color: var(--#{$prefix}portlet-body-color);
+
+  &:first-child {
+    padding-top: var(--#{$prefix}portlet-component-padding);
+  }
+
+  &:empty {
+    display: none;
+  }
+}
+
+.portlet-footer {
+  padding: var(--#{$prefix}portlet-component-padding);
+
+  &.portlet-footer-bordered {
+    border-top: var(--#{$prefix}portlet-border-width) $border-style
+      var(--#{$prefix}portlet-border-color);
+  }
+}
+
+.portlet-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--#{$prefix}portlet-icon-dimension);
+  height: var(--#{$prefix}portlet-icon-dimension);
+  margin-right: var(--#{$prefix}portlet-addon-spacer);
+  color: var(--#{$prefix}portlet-icon-color);
+  @include icon-size(var(--#{$prefix}portlet-icon-size));
+}
+
+.portlet-title {
+  flex: 1;
+  @include font-size(var(--#{$prefix}portlet-title-font-size));
+  font-weight: var(--#{$prefix}portlet-title-font-weight);
+  color: var(--#{$prefix}portlet-title-color);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.portlet-addon {
+  white-space: nowrap;
+
+  &:last-child {
+    margin-left: var(--#{$prefix}portlet-addon-spacer);
+  }
+
+  &:first-child {
+    margin-right: var(--#{$prefix}portlet-addon-spacer);
+  }
+}
+
+// Contextual portlet colors
+@each $state, $color in $theme-colors {
+  .portlet-#{$state} {
+    --#{$prefix}portlet-bg: #{$color};
+    --#{$prefix}portlet-color: #{color-contrast($color)};
+    --#{$prefix}portlet-border-color: var(--#{$prefix}#{$state}-border-subtle);
+
+    .portlet-icon,
+    .portlet-title {
+      color: inherit;
+    }
+
+    > .portlet-body {
+      color: inherit;
+    }
+  }
+}
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+    // Override .col-* class to fill spaces with portlet
+    .portlet-row-fill#{$infix} {
+      > [class*="col"] {
+        display: flex;
+        flex-direction: column;
+
+        > .portlet {
+          flex: 1;
+        }
+      }
+    }
+  }
+}
+
+// Fixing some problem when portlet collapsed
+.portlet-collapsed {
+  > .portlet-footer {
+    margin-top: -$portlet-border-width;
+
+    &:not(.portlet-footer-bordered) {
+      padding-top: $portlet-component-padding;
+    }
+  }
+}
+
+// Fixing .nav element position inside .portlet-header
+.portlet-nav {
+  margin: 0 !important;
+
+  &.nav-tabs {
+    border-bottom-color: transparent;
+  }
+
+  &.nav-underline,
+  &.nav-tabs {
+    margin-bottom: calc(
+      (#{$portlet-component-padding} + #{$portlet-border-width}) * -1
+    ) !important;
+
+    .nav-link {
+      padding-bottom: calc(
+        #{$portlet-component-padding} + #{$portlet-border-width}
+      ) !important;
+      border-width: $portlet-border-width !important;
+    }
+  }
+}
+
+// Decrease scrollable portlet max-height inside dropdown menu
+.dropdown-menu {
+  .portlet {
+    margin-bottom: 0;
+  }
+
+  .portlet-scroll > .portlet-body {
+    max-height: $portlet-max-height-sm;
+  }
+}

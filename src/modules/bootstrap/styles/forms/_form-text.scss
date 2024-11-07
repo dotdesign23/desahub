@@ -1,0 +1,7 @@
+@import "bootstrap/scss/forms/form-text";
+
+.form-label-required::after {
+	content: "*";
+	color: $danger;
+	margin: $spacer * .125;
+}

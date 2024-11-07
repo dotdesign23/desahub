@@ -1,0 +1,145 @@
+// Base styles
+
+.chat {
+  --#{$prefix}chat-spacer: #{$chat-spacer};
+  --#{$prefix}chat-border-radius: #{$chat-border-radius};
+  --#{$prefix}chat-max-width: #{$chat-max-width};
+  --#{$prefix}chat-content-padding: #{$chat-content-padding};
+  --#{$prefix}chat-bubble-bg: #{$chat-bubble-bg};
+  --#{$prefix}chat-bubble-color: #{$chat-bubble-color};
+  --#{$prefix}chat-bubble-opacity: #{$chat-bubble-opacity};
+  --#{$prefix}chat-bubble-padding: #{$chat-bubble-padding};
+  --#{$prefix}chat-bubble-max-width: #{$chat-bubble-max-width};
+  --#{$prefix}chat-image-max-width: #{$chat-image-max-width};
+  --#{$prefix}chat-author-color: #{$chat-author-color};
+  @include rfs($chat-author-font-size, --#{$prefix}chat-author-font-size);
+  --#{$prefix}chat-author-font-weight: #{$chat-author-font-weight};
+  --#{$prefix}chat-time-color: #{$chat-time-color};
+  @include rfs($chat-time-font-size, --#{$prefix}chat-time-font-size);
+  --#{$prefix}chat-time-font-weight: #{$chat-time-font-weight};
+  --#{$prefix}chat-section-bg: #{$chat-section-bg};
+  --#{$prefix}chat-section-color: #{$chat-section-color};
+  @include rfs($chat-section-font-size, --#{$prefix}chat-section-font-size);
+  --#{$prefix}chat-section-font-weight: #{$chat-section-font-weight};
+  --#{$prefix}chat-section-padding-y: #{$chat-section-padding-y};
+  --#{$prefix}chat-section-padding-x: #{$chat-section-padding-x};
+  --#{$prefix}chat-section-border-radius: #{$chat-section-border-radius};
+
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-item {
+  display: flex;
+  margin: var(--#{$prefix}chat-spacer) 0;
+  max-width: var(--#{$prefix}chat-max-width);
+}
+
+.chat-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-bubble {
+  display: block;
+  text-align: inherit;
+  color: var(--#{$prefix}chat-bubble-color);
+  background-color: var(--#{$prefix}chat-bubble-bg);
+  padding: var(--#{$prefix}chat-bubble-padding);
+  max-width: var(--#{$prefix}chat-bubble-max-width);
+  margin: 0;
+  text-wrap: wrap;
+  @include border-radius(var(--#{$prefix}chat-border-radius));
+
+  // Add space between the bubbles
+  + .chat-bubble {
+    margin-top: var(--#{$prefix}chat-spacer);
+  }
+
+  .chat-bubble {
+    margin-bottom: var(--#{$prefix}chat-spacer);
+  }
+}
+
+// Chat item orientations
+.chat-item-start {
+  text-align: left;
+  flex-direction: row;
+  align-self: flex-start;
+
+  .chat-content {
+    align-items: flex-start;
+  }
+}
+
+.chat-item-end {
+  text-align: right;
+  flex-direction: row-reverse;
+  align-self: flex-end;
+
+  .chat-content {
+    align-items: flex-end;
+  }
+}
+
+// Chat bubble background color variants
+@each $state, $color in $theme-colors {
+  .chat-bubble-#{$state} {
+    background-color: var(--#{$prefix}#{$state}-bg-subtle);
+  }
+}
+
+// Avatar wrapper
+.chat-avatar {
+  padding: var(--#{$prefix}chat-content-padding);
+}
+
+.chat-image {
+  display: block;
+  max-width: var(--#{$prefix}chat-image-max-width);
+  width: 100%;
+  margin-bottom: var(--#{$prefix}chat-spacer);
+  @include border-radius(var(--#{$prefix}chat-border-radius));
+}
+
+.chat-author {
+  display: block;
+  color: var(--#{$prefix}chat-author-color);
+  @include font-size(var(--#{$prefix}chat-author-font-size));
+  font-weight: var(--#{$prefix}chat-author-font-weight);
+  padding: var(--#{$prefix}chat-content-padding);
+}
+
+.chat-time {
+  display: block;
+  color: var(--#{$prefix}chat-time-color);
+  @include font-size(var(--#{$prefix}chat-time-font-size));
+  font-weight: var(--#{$prefix}chat-time-font-weight);
+  padding: var(--#{$prefix}chat-content-padding);
+}
+
+// Chat section marker
+.chat-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: var(--#{$prefix}chat-spacer) 0;
+}
+
+.chat-section-text {
+  color: var(--#{$prefix}chat-section-color);
+  background-color: var(--#{$prefix}chat-section-bg);
+  @include font-size(var(--#{$prefix}chat-section-font-size));
+  font-weight: var(--#{$prefix}chat-section-font-weight);
+  padding: var(--#{$prefix}chat-section-padding-y)
+    var(--#{$prefix}chat-section-padding-x);
+  @include border-radius(var(--#{$prefix}chat-section-border-radius));
+}
+
+@if $enable-dark-mode {
+  @include color-mode(dark) {
+    .chat {
+      --#{$prefix}chat-bubble-bg: #{$chat-bubble-bg-dark};
+    }
+  }
+}

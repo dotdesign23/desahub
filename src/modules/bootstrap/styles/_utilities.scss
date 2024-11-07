@@ -1,0 +1,38 @@
+@import "bootstrap/scss/utilities";
+
+$utilities: map-merge(
+  $utilities,
+  (
+    "color-level": (
+      property: color,
+      class: text-level,
+      values: (
+        1: var(--#{$prefix}text-level-1),
+        2: var(--#{$prefix}text-level-2),
+        3: var(--#{$prefix}text-level-3),
+        4: var(--#{$prefix}text-level-4),
+      ),
+    ),
+    "background-level": (
+      property: background-color,
+      class: bg-level,
+      values: (
+        1: var(--#{$prefix}bg-level-1),
+        2: var(--#{$prefix}bg-level-2),
+        3: var(--#{$prefix}bg-level-3),
+        4: var(--#{$prefix}bg-level-4),
+      ),
+    ),
+    "text-align": (
+      responsive: true,
+      property: text-align,
+      class: text,
+      values: (
+        start: left,
+        end: right,
+        center: center,
+        justify: justify,
+      ),
+    ),
+  )
+);

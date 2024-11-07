@@ -1,0 +1,9 @@
+@import "bootstrap/scss/toasts";
+
+.toast {
+  border-style: $border-style;
+}
+
+.toast-header {
+  border-bottom-style: $border-style;
+}

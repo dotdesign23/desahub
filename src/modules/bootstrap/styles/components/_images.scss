@@ -1,0 +1,21 @@
+@import "bootstrap/scss/images";
+
+.img-thumbnail {
+  border-style: $border-style;
+}
+
+.gallery {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  overflow-x: auto;
+  margin-bottom: $spacer * .5;
+  gap: $spacer * .5;
+}
+
+.gallery-img {
+  height: 10rem;
+  max-height: 10rem;
+  border: $border-width $border-style $border-color;
+  border-radius: $border-radius-sm;
+}

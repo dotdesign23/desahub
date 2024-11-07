@@ -1,0 +1,21 @@
+// Configuration
+@import "bootstrap/scss/functions";
+@import "variables";
+@import "variables-dark";
+@import "maps";
+@import "mixins";
+@import "utilities";
+
+// Layout & components
+@import "root";
+@import "reboot";
+@import "layout";
+@import "forms";
+@import "components";
+@import "widgets";
+
+// Helpers
+@import "helpers";
+
+// Utilities
+@import "bootstrap/scss/utilities/api";

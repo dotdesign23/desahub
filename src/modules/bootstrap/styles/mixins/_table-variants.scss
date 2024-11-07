@@ -1,0 +1,32 @@
+@mixin table-variant($state, $color) {
+  .table-#{$state} {
+    $hover-bg: rgba($color, $table-hover-bg-factor);
+    $striped-bg: rgba($color, $table-striped-bg-factor);
+    $active-bg: rgba($color, $table-active-bg-factor);
+
+    $table-border-color: null;
+
+    @if $state == "dark" {
+      $table-border-color: mix(
+        $color-contrast-light,
+        $gray-500,
+        percentage($table-border-factor)
+      );
+    } @else {
+      $table-border-color: mix(
+        $color-contrast-dark,
+        $color,
+        percentage($table-border-factor)
+      );
+    }
+
+    --#{$prefix}table-bg: #{var(--#{$prefix}#{$state}-bg-subtle)};
+    --#{$prefix}table-border-color: #{$table-border-color};
+    --#{$prefix}table-striped-bg: #{$striped-bg};
+    --#{$prefix}table-active-bg: #{$active-bg};
+    --#{$prefix}table-hover-bg: #{$hover-bg};
+
+    color: var(--#{$prefix}table-color);
+    border-color: var(--#{$prefix}table-border-color);
+  }
+}

@@ -1,0 +1,73 @@
+.preload {
+  --#{$prefix}preload-bg: #{$preload-bg};
+  --#{$prefix}preload-zindex: #{$zindex-preload};
+  --#{$prefix}preload-message-bg: #{$preload-message-bg};
+  --#{$prefix}preload-message-padding-y: #{$preload-message-padding-y};
+  --#{$prefix}preload-message-padding-x: #{$preload-message-padding-x};
+  --#{$prefix}preload-message-border-width: #{$preload-message-border-width};
+  --#{$prefix}preload-message-border-color: #{$preload-message-border-color};
+  --#{$prefix}preload-message-border-radius: #{$preload-message-border-radius};
+  --#{$prefix}preload-message-spinner-spacer: #{$preload-message-spinner-spacer};
+  --#{$prefix}preload-message-text-color: #{$preload-message-text-color};
+  @include rfs(
+    $preload-message-text-font-size,
+    --#{$prefix}preload-message-text-font-size
+  );
+  --#{$prefix}preload-message-text-font-weight: #{$preload-message-text-font-weight};
+
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--#{$prefix}preload-bg);
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: var(--#{$prefix}preload-zindex);
+}
+
+.preload-dialog {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.preload-spinner {
+  --#{$prefix}spinner-width: #{$preload-spinner-dimension} !important;
+  --#{$prefix}spinner-height: #{$preload-spinner-dimension} !important;
+}
+
+.preload-message {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: var(--#{$prefix}preload-message-bg);
+  padding: var(--#{$prefix}preload-message-padding-y)
+    var(--#{$prefix}preload-message-padding-x);
+  border: var(--#{$prefix}preload-message-border-width) $border-style
+    var(--#{$prefix}preload-message-border-color);
+  @include border-radius(var(--#{$prefix}preload-message-border-radius));
+
+  > [class*="spinner"] {
+    margin-right: var(--#{$prefix}preload-message-spinner-spacer);
+  }
+}
+
+.preload-text {
+  color: var(--#{$prefix}preload-message-text-color);
+  @include font-size(var(--#{$prefix}preload-message-text-font-size));
+  font-weight: var(--#{$prefix}preload-message-text-font-weight);
+}
+
+// Hide body scrollbar
+body.preload-active:not(.preload-hide) {
+  overflow: hidden;
+}
+
+// Hide preload
+body.preload-hide {
+  .preload {
+    display: none;
+  }
+}

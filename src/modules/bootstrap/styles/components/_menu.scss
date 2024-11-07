@@ -1,0 +1,213 @@
+// Base styles
+
+.menu {
+  --#{$prefix}menu-link-height: #{$menu-link-height};
+  --#{$prefix}menu-link-padding-x: #{$menu-link-padding-x};
+  --#{$prefix}menu-link-margin-y: #{$menu-link-margin-y};
+  --#{$prefix}menu-link-bg: #{$menu-link-bg};
+  --#{$prefix}menu-link-color: #{$menu-link-color};
+  --#{$prefix}menu-link-hover-bg: #{$menu-link-hover-bg};
+  --#{$prefix}menu-link-hover-color: #{$menu-link-color};
+  --#{$prefix}menu-link-active-bg: #{$menu-link-active-bg};
+  --#{$prefix}menu-link-active-color: #{$menu-link-active-color};
+  @include rfs($menu-link-font-size, --#{$prefix}menu-link-font-size);
+  --#{$prefix}menu-link-font-weight: #{$menu-link-font-weight};
+  --#{$prefix}menu-link-icon-dimension: #{$menu-link-icon-dimension};
+  @include rfs($menu-link-icon-size, --#{$prefix}menu-link-icon-size);
+  --#{$prefix}menu-link-text-spacer: #{$menu-link-text-spacer};
+  --#{$prefix}menu-link-addon-spacer: #{$menu-link-addon-spacer};
+  --#{$prefix}menu-link-caret-spacer: #{$menu-link-caret-spacer};
+  --#{$prefix}menu-link-transition: #{$menu-link-transition};
+  --#{$prefix}menu-sub-bg: #{$menu-sub-bg};
+  --#{$prefix}menu-sub-transition: #{$menu-sub-transition};
+  --#{$prefix}menu-section-height: #{$menu-section-height};
+  --#{$prefix}menu-section-spacer: #{$menu-section-spacer};
+  --#{$prefix}menu-section-text-spacer: #{$menu-section-text-spacer};
+  --#{$prefix}menu-section-color: #{$menu-section-color};
+  @include rfs($menu-section-font-size, --#{$prefix}menu-section-font-size);
+  --#{$prefix}menu-section-font-weight: #{$menu-section-font-weight};
+
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-item {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.menu-item-link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: var(--#{$prefix}menu-link-height);
+  max-height: var(--#{$prefix}menu-link-height);
+  color: var(--#{$prefix}menu-link-color);
+  background-color: var(--#{$prefix}menu-link-bg);
+  padding: 0 var(--#{$prefix}menu-link-padding-x);
+  margin: var(--#{$prefix}menu-link-margin-y) 0;
+  text-align: left;
+  text-decoration: none;
+  border: 0;
+  outline: 0 !important;
+  @include border-radius($menu-link-border-radius);
+  @include transition(var(--#{$prefix}menu-link-transition));
+
+  // Hover state
+  &:hover {
+    color: var(--#{$prefix}menu-link-hover-color);
+    background-color: var(--#{$prefix}menu-link-hover-bg);
+  }
+
+  // Active and focus state
+  &.active,
+  &:not(.menu-item-toggle):focus {
+    color: var(--#{$prefix}menu-link-active-color) !important;
+    background-color: var(--#{$prefix}menu-link-active-bg) !important;
+
+    // Rotate caret
+    .menu-item-caret {
+      @include caret-transform(down);
+    }
+  }
+
+  .menu-sub & {
+    margin: 0;
+  }
+
+  &.menu-item-toggle.active {
+    @include border-bottom-radius(0);
+
+    + .menu-sub {
+      @include border-top-radius(0);
+    }
+  }
+}
+
+.menu-item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--#{$prefix}menu-link-icon-dimension);
+  min-width: var(--#{$prefix}menu-link-icon-dimension);
+  height: var(--#{$prefix}menu-link-icon-dimension);
+  @include icon-size(var(--#{$prefix}menu-link-icon-size));
+}
+
+.menu-item-bullet {
+  position: relative;
+  width: var(--#{$prefix}menu-link-icon-dimension);
+  min-width: var(--#{$prefix}menu-link-icon-dimension);
+  height: var(--#{$prefix}menu-link-icon-dimension);
+
+  &:before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: $menu-bullet-dimension;
+    height: $menu-bullet-dimension;
+    background-color: currentColor;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+  }
+}
+
+.menu-item-text {
+  width: 100%;
+  color: inherit;
+  @include font-size(var(--#{$prefix}menu-link-font-size));
+  font-weight: var(--#{$prefix}menu-link-font-weight);
+  margin: 0 var(--#{$prefix}menu-link-text-spacer);
+  padding: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.menu-item-addon {
+  white-space: nowrap;
+  margin: 0 var(--#{$prefix}menu-link-addon-spacer);
+}
+
+.menu-item-caret {
+  margin: 0 var(--#{$prefix}menu-link-caret-spacer);
+}
+
+// Section styles
+
+.menu-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  min-height: var(--#{$prefix}menu-section-height);
+  padding-left: var(--#{$prefix}menu-section-spacer);
+}
+
+.menu-section-text {
+  color: var(--#{$prefix}menu-section-color);
+  @include font-size(var(--#{$prefix}menu-section-font-size));
+  font-weight: var(--#{$prefix}menu-section-font-weight);
+  padding: 0 var(--#{$prefix}menu-section-text-spacer);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// Nesting submenu styles for 3 level
+
+.menu-sub {
+  overflow: hidden;
+  margin-top: calc(-1 * var(--#{$prefix}menu-link-margin-y));
+  background-color: var(--#{$prefix}menu-sub-bg);
+  @include transition(var(--#{$prefix}menu-sub-transition));
+  @include border-radius($menu-link-border-radius);
+
+  .menu-item-link {
+    padding-left: calc(1.25 * var(--#{$prefix}menu-link-padding-x));
+  }
+
+  #{&} {
+    margin-top: 0;
+    @include border-radius(0);
+
+    .menu-item-link {
+      margin: 0 calc(1.25 * var(--#{$prefix}menu-link-padding-x));
+    }
+  }
+}
+
+// Border Radius Styling
+
+.menu-sub .menu-item-toggle.active {
+  @include border-radius(0);
+}
+
+.menu > .menu-item > .menu-sub {
+  > .menu-item > .menu-sub > .menu-item:first-child > .menu-item-link,
+  > .menu-item:first-child > .menu-item-link:not(.menu-item-toggle.active) {
+    @include border-top-radius(0);
+    @include border-bottom-radius($menu-link-border-radius);
+  }
+
+  > .menu-item > .menu-sub > .menu-item:last-child > .menu-item-link,
+  > .menu-item:last-child > .menu-item-link:not(.menu-item-toggle.active) {
+    @include border-bottom-radius(0);
+    @include border-top-radius($menu-link-border-radius);
+  }
+}
+
+@if $enable-dark-mode {
+  @include color-mode(dark) {
+    .menu {
+      --#{$prefix}menu-link-hover-bg: #{$menu-link-hover-bg-dark};
+      --#{$prefix}menu-sub-bg: #{$menu-sub-bg-dark};
+    }
+  }
+}

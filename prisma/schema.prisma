@@ -1,0 +1,25 @@
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum CorrespondanceStatus {
+  SUBMITTED
+  PROCESSED
+  FINISHED
+}
+
+model Correspondance {
+  key         String               @id @db.Char(36)
+  senderEmail String               @db.Char(100)
+  status      CorrespondanceStatus
+  content     Json
+  createdAt   DateTime             @default(now())
+
+  @@index([senderEmail], type: Hash)
+}

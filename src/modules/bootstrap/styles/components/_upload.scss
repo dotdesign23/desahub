@@ -1,0 +1,62 @@
+.upload {
+	display: flex;
+	flex-direction: column;
+	gap: $spacer;
+}
+
+.upload-drop {
+	width: 100%;
+	height: 10rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: $font-size-lg;
+	font-weight: $font-weight-base;
+	padding: $spacer;
+	background-color: $component-bg;
+	border: $input-border-width dashed $input-border-color;
+	border-radius: $border-radius;
+	cursor: pointer;
+	
+	&.disabled {
+		pointer-events: none;
+		background-color: $component-disabled-bg;
+		opacity: $component-disabled-opacity;
+	}
+}
+
+.upload-wrap {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	gap: $spacer;
+	overflow: auto;
+}
+
+.upload-drop.dragged,
+.upload-drop:hover {
+	background-color: $component-hover-bg;
+}
+
+.upload-box {
+	display: flex;
+	flex-direction: column;
+	gap: $spacer * .75;
+	padding: $spacer;
+	border: $input-border-width $border-style $input-border-color;
+	border-radius: $border-radius;
+}
+
+.upload-img {
+	width: auto;
+	height: 10rem;
+	max-height: 10rem;
+	border-radius: $border-radius-sm;
+}
+
+.upload-action {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	gap: $spacer * .5;
+}

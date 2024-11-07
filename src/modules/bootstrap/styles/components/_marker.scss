@@ -1,0 +1,62 @@
+// Base styles
+
+.marker {
+  --#{$prefix}marker-color: #{$marker-color};
+  --#{$prefix}marker-spacer: #{$marker-spacer};
+  --#{$prefix}marker-base-dimension: #{$marker-base-dimension};
+  --#{$prefix}marker-outline-width: #{$marker-outline-width};
+  --#{$prefix}marker-outline-color: #{$marker-outline-color};
+  --#{$prefix}marker-pill-width-ratio: #{$marker-pill-width-ratio};
+  --#{$prefix}marker-circle-bg: #{$marker-circle-bg};
+  --#{$prefix}marker-circle-border-ratio: #{$marker-circle-border-ratio};
+
+  display: inline-block;
+  color: var(--#{$prefix}marker-color);
+  margin: 0 var(--#{$prefix}marker-spacer);
+
+  // Box shadow property is used for marker outline
+  box-shadow: 0 0 0 var(--#{$prefix}marker-outline-width)
+    var(--#{$prefix}marker-outline-color);
+}
+
+// Marker variations
+.marker-dot {
+  width: var(--#{$prefix}marker-base-dimension);
+  height: var(--#{$prefix}marker-base-dimension);
+  background-color: currentColor;
+  border-radius: 50%;
+}
+
+.marker-pill {
+  width: calc(
+    var(--#{$prefix}marker-base-dimension) *
+      var(--#{$prefix}marker-pill-width-ratio)
+  );
+  height: var(--#{$prefix}marker-base-dimension);
+  background-color: currentColor;
+  border-radius: calc(0.5 * var(--#{$prefix}marker-base-dimension));
+}
+
+.marker-circle {
+  width: calc(
+    var(--#{$prefix}marker-base-dimension) *
+      var(--#{$prefix}marker-circle-border-ratio) +
+      var(--#{$prefix}marker-base-dimension)
+  );
+  height: calc(
+    var(--#{$prefix}marker-base-dimension) *
+      var(--#{$prefix}marker-circle-border-ratio) +
+      var(--#{$prefix}marker-base-dimension)
+  );
+  background-color: var(--#{$prefix}marker-circle-bg);
+  border: var(--#{$prefix}marker-outline-width) solid currentColor;
+  border-radius: 50%;
+}
+
+// Sizing
+.marker-lg {
+  --#{$prefix}marker-base-dimension: #{$marker-base-dimension-lg};
+}
+.marker-sm {
+  --#{$prefix}marker-base-dimension: #{$marker-base-dimension-sm};
+}

@@ -1,0 +1,46 @@
+@import "bootstrap/scss/breadcrumb";
+
+.breadcrumb {
+  --#{$prefix}breadcrumb-color: #{$breadcrumb-color};
+  @include rfs($breadcrumb-icon-size, --#{$prefix}breadcrumb-icon-size);
+}
+
+.breadcrumb-transparent {
+  --#{$prefix}breadcrumb-bg: transparent;
+
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--#{$prefix}breadcrumb-color);
+
+  // The separator between breadcrumbs
+  + #{&} {
+    &::before {
+      display: inline-block;
+      width: $breadcrumb-divider-dimension;
+      height: $breadcrumb-divider-dimension;
+      padding: 0 !important;
+      margin-right: var(--#{$prefix}breadcrumb-item-padding-x);
+      background-color: var(--#{$prefix}breadcrumb-divider-color);
+      border-radius: 50%;
+    }
+  }
+}
+
+.breadcrumb-text {
+  color: inherit;
+  font-size: inherit;
+}
+
+.breadcrumb-icon {
+  display: inline-block;
+  color: inherit;
+  line-height: 0;
+  margin-right: var(--#{$prefix}breadcrumb-item-padding-x);
+  @include icon-size(var(--#{$prefix}breadcrumb-icon-size));
+}

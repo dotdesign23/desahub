@@ -1,0 +1,20 @@
+@import "bootstrap/scss/helpers/icon-link";
+
+.icon-link {
+  @include icon-size($icon-link-icon-size);
+  @include icon-style {
+    @include transition($icon-link-icon-transition);
+  }
+}
+
+.icon-link-hover {
+  &:hover,
+  &:focus-visible {
+    @include icon-style {
+      transform: var(
+        --#{$prefix}icon-link-transform,
+        $icon-link-icon-transform
+      );
+    }
+  }
+}

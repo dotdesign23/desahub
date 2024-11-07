@@ -1,0 +1,19 @@
+@import "bootstrap/scss/accordion";
+
+.accordion {
+  --#{$prefix}accordion-icon-width: #{$accordion-icon-width};
+  @include rfs($accordion-icon-size, --#{$prefix}accordion-icon-size);
+  --#{$prefix}accordion-icon-spacer: #{$accordion-icon-spacer};
+}
+
+.accordion-item {
+  border-style: $border-style;
+}
+
+.accordion-icon {
+  text-align: center;
+  min-width: var(--#{$prefix}accordion-icon-width);
+  max-width: var(--#{$prefix}accordion-icon-width);
+  margin-right: var(--#{$prefix}accordion-icon-spacer);
+  @include icon-size(var(--#{$prefix}accordion-icon-size));
+}

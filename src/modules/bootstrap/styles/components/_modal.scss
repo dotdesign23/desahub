@@ -1,0 +1,29 @@
+@import "bootstrap/scss/modal";
+
+.modal {
+  --#{$prefix}modal-title-color: #{$modal-title-color};
+  --#{$prefix}modal-title-font-size: #{$modal-title-font-size};
+  --#{$prefix}modal-title-font-weight: #{$modal-title-font-weight};
+}
+
+.modal-content {
+  border-style: $border-style;
+}
+
+.modal-header {
+  justify-content: space-between;
+  border-bottom-style: $border-style;
+}
+
+.modal-footer {
+  border-top-style: $border-style;
+}
+
+// Title text within header
+.modal-title {
+  margin-bottom: 0;
+  color: var(--#{$prefix}modal-title-color);
+  @include font-size(var(--#{$prefix}modal-title-font-size));
+  font-weight: var(--#{$prefix}modal-title-font-weight);
+  line-height: var(--#{$prefix}modal-title-line-height);
+}

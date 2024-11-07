@@ -1,0 +1,168 @@
+// Base styles
+
+.gridnav {
+  --#{$prefix}gridnav-bg: #{$gridnav-bg};
+  --#{$prefix}gridnav-color: #{$gridnav-color};
+  --#{$prefix}gridnav-border-width: #{$gridnav-border-width};
+  --#{$prefix}gridnav-border-color: #{$gridnav-border-color};
+  --#{$prefix}gridnav-border-radius: #{$gridnav-border-radius};
+  --#{$prefix}gridnav-item-padding-y: #{$gridnav-item-padding-y};
+  --#{$prefix}gridnav-item-padding-x: #{$gridnav-item-padding-x};
+  --#{$prefix}gridnav-item-min-width: #{$gridnav-item-min-width};
+  --#{$prefix}gridnav-content-line-height: #{$gridnav-content-line-height};
+  --#{$prefix}gridnav-title-color: #{$gridnav-title-color};
+  @include rfs($gridnav-title-font-size, --#{$prefix}gridnav-title-font-size);
+  --#{$prefix}gridnav-title-font-weight: #{$gridnav-title-font-weight};
+  --#{$prefix}gridnav-subtitle-color: #{$gridnav-subtitle-color};
+  @include rfs(
+    $gridnav-subtitle-font-size,
+    --#{$prefix}gridnav-subtitle-font-size
+  );
+  --#{$prefix}gridnav-subtitle-font-weight: #{$gridnav-subtitle-font-weight};
+  --#{$prefix}gridnav-icon-color: #{$gridnav-icon-color};
+  @include rfs($gridnav-icon-size, --#{$prefix}gridnav-icon-size);
+  --#{$prefix}gridnav-icon-spacer: #{$gridnav-icon-spacer};
+
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.gridnav-item {
+  flex: 1;
+  min-width: var(--#{$prefix}gridnav-item-min-width);
+  color: var(--#{$prefix}gridnav-color);
+  background-color: var(--#{$prefix}gridnav-bg);
+  padding: var(--#{$prefix}gridnav-item-padding-y)
+    var(--#{$prefix}gridnav-item-padding-x);
+  cursor: default;
+
+  // Reset default behavior of <a> tag
+  text-decoration: none;
+
+  // Prevent border duplicates
+  + .gridnav-item {
+    border-left: var(--#{$prefix}gridnav-border-width) $border-style var(--#{$prefix}gridnav-border-color);
+  }
+}
+
+// Make .gridnav-item behave like link with active and disabled states
+.gridnav-action {
+  --#{$prefix}gridnav-item-hover-bg: #{$gridnav-item-hover-bg};
+  --#{$prefix}gridnav-item-hover-color: #{$gridnav-item-hover-color};
+  --#{$prefix}gridnav-item-hover-border-color: #{$gridnav-item-hover-border-color};
+  --#{$prefix}gridnav-item-active-bg: #{$gridnav-item-active-bg};
+  --#{$prefix}gridnav-item-active-color: #{$gridnav-item-active-color};
+  --#{$prefix}gridnav-item-active-border-color: #{$gridnav-item-active-border-color};
+  --#{$prefix}gridnav-item-disabled-bg: #{$gridnav-item-disabled-bg};
+  --#{$prefix}gridnav-item-disabled-color: #{$gridnav-item-disabled-color};
+  --#{$prefix}gridnav-item-disabled-border-color: #{$gridnav-item-disabled-border-color};
+  --#{$prefix}gridnav-item-disabled-opacity: #{$gridnav-item-disabled-opacity};
+
+  .gridnav-item {
+    cursor: pointer;
+
+    &:focus,
+    &:hover {
+      z-index: 1;
+      background-color: var(--#{$prefix}gridnav-item-hover-bg);
+      border-color: var(--#{$prefix}gridnav-item-hover-border-color);
+
+      .gridnav-icon {
+        color: var(--#{$prefix}gridnav-item-hover-color);
+      }
+    }
+
+    &.active,
+    &:active {
+      z-index: 2;
+      background-color: var(--#{$prefix}gridnav-item-active-bg);
+      border-color: var(--#{$prefix}gridnav-item-active-border-color);
+
+      .gridnav-icon {
+        color: var(--#{$prefix}gridnav-item-active-color);
+      }
+    }
+
+    &.disabled,
+    &:disabled {
+      color: var(--#{$prefix}gridnav-item-disabled-color);
+      background-color: var(--#{$prefix}gridnav-item-disabled-bg);
+      border-color: var(--#{$prefix}gridnav-item-disabled-border-color);
+      opacity: var(--#{$prefix}gridnav-item-disabled-opacity);
+      pointer-events: none;
+    }
+  }
+}
+
+// Make the .gridnav rounded when doesn't has .gridnav-no-rounded class
+.gridnav:not(.gridnav-no-rounded) {
+  .gridnav-row:first-of-type {
+    .gridnav-item {
+      &:first-of-type {
+        @include border-top-start-radius(
+          var(--#{$prefix}gridnav-border-radius)
+        );
+      }
+
+      &:last-of-type {
+        @include border-top-end-radius(var(--#{$prefix}gridnav-border-radius));
+      }
+    }
+  }
+
+  .gridnav-row:last-of-type {
+    .gridnav-item {
+      &:first-of-type {
+        @include border-bottom-start-radius(
+          var(--#{$prefix}gridnav-border-radius)
+        );
+      }
+
+      &:last-of-type {
+        @include border-bottom-end-radius(
+          var(--#{$prefix}gridnav-border-radius)
+        );
+      }
+    }
+  }
+}
+
+// Content styles
+.gridnav-content {
+  display: block;
+  width: 100%;
+  text-align: center;
+  color: var(--#{$prefix}gridnav-title-color);
+  @include font-size(var(--#{$prefix}gridnav-title-font-size));
+  font-weight: var(--#{$prefix}gridnav-title-font-weight);
+}
+
+.gridnav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--#{$prefix}gridnav-icon-spacer);
+  color: var(--#{$prefix}gridnav-icon-color);
+  @include icon-size(var(--#{$prefix}gridnav-icon-size));
+}
+
+.gridnav-subtitle,
+.gridnav-title {
+  display: block;
+  margin: 0;
+  padding: 0;
+  line-height: var(--#{$prefix}gridnav-content-line-height);
+}
+
+.gridnav-title {
+  color: var(--#{$prefix}gridnav-title-color);
+  @include font-size(var(--#{$prefix}gridnav-title-font-size));
+  font-weight: var(--#{$prefix}gridnav-title-font-weight);
+}
+
+.gridnav-subtitle {
+  color: var(--#{$prefix}gridnav-subtitle-color);
+  @include font-size(var(--#{$prefix}gridnav-subtitle-font-size));
+  font-weight: var(--#{$prefix}gridnav-subtitle-font-weight);
+}

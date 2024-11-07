@@ -1,0 +1,6 @@
+.widget15 {
+  color: $widget15-color;
+  @include font-size($widget15-font-size);
+  font-weight: $widget15-font-weight;
+  margin-bottom: 0;
+}

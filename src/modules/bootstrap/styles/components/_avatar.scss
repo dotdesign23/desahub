@@ -1,0 +1,122 @@
+// Base class
+
+.avatar {
+  --#{$prefix}avatar-bg: #{$avatar-bg};
+  --#{$prefix}avatar-color: #{$avatar-color};
+  --#{$prefix}avatar-dimension: #{$avatar-dimension};
+  @include rfs($avatar-font-size, --#{$prefix}avatar-font-size);
+  --#{$prefix}avatar-outline-width: #{$avatar-outline-width};
+  --#{$prefix}avatar-outline-color: #{$avatar-outline-color};
+  --#{$prefix}avatar-border-radius: #{$avatar-border-radius};
+  --#{$prefix}avatar-spacer: #{$avatar-spacer};
+  @include rfs($avatar-display-font-size, --#{$prefix}avatar-display-font-size);
+  --#{$prefix}avatar-display-font-weight: #{$avatar-display-font-weight};
+  @include rfs($avatar-display-icon-size, --#{$prefix}avatar-display-icon-size);
+  --#{$prefix}avatar-icon-bg: #{$avatar-icon-bg};
+  --#{$prefix}avatar-icon-color: #{$avatar-icon-color};
+  --#{$prefix}avatar-icon-dimension: #{$avatar-icon-dimension};
+  @include rfs($avatar-icon-size, --#{$prefix}avatar-icon-size);
+  --#{$prefix}avatar-group-offset: #{$avatar-group-offset};
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--#{$prefix}avatar-dimension);
+  height: var(--#{$prefix}avatar-dimension);
+  color: var(--#{$prefix}avatar-color);
+  background-color: var(--#{$prefix}avatar-bg);
+  @include font-size(var(--#{$prefix}avatar-font-size));
+  margin: 0 var(--#{$prefix}avatar-spacer);
+  @include border-radius(var(--#{$prefix}avatar-border-radius));
+}
+
+.avatar-display {
+  display: block;
+  color: inherit;
+  @include font-size(var(--#{$prefix}avatar-display-font-size));
+  font-weight: var(--#{$prefix}avatar-display-font-weight);
+  overflow: hidden;
+  @include icon-size(var(--#{$prefix}avatar-display-icon-size));
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+    height: 100%;
+    @include border-radius(var(--#{$prefix}avatar-border-radius));
+  }
+}
+
+.avatar-badge,
+.avatar-icon {
+  position: relative;
+  border: var(--#{$prefix}avatar-outline-width) solid
+    var(--#{$prefix}avatar-outline-color);
+}
+
+.avatar-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--#{$prefix}avatar-icon-dimension);
+  height: var(--#{$prefix}avatar-icon-dimension);
+  color: var(--#{$prefix}avatar-icon-color);
+  background-color: var(--#{$prefix}avatar-icon-bg);
+  border-radius: 50%;
+  @include icon-size(var(--#{$prefix}avatar-icon-size));
+}
+
+// Circle avatar version
+.avatar-circle,
+.avatar-circle .avatar-display img {
+  border-radius: 50% !important;
+}
+
+// Contextual color variations
+@each $state in map-keys($theme-colors) {
+  .avatar-#{$state} {
+    --#{$prefix}avatar-bg: var(--#{$prefix}#{$state});
+    --#{$prefix}avatar-color: #{color-contrast(map-get($theme-colors, $state))};
+  }
+
+  .avatar-subtle-#{$state} {
+    --#{$prefix}avatar-bg: var(--#{$prefix}#{$state}-bg-subtle);
+    --#{$prefix}avatar-color: var(--#{$prefix}#{$state}-text-emphasis);
+  }
+
+  .avatar-icon-#{$state} {
+    --#{$prefix}avatar-icon-bg: var(--#{$prefix}#{$state});
+    --#{$prefix}avatar-icon-color: #{color-contrast(
+        map-get($theme-colors, $state)
+      )};
+  }
+}
+
+// Grouping avatars
+.avatar-group {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+
+  > .avatar {
+    margin: 0;
+    border: var(--#{$prefix}avatar-outline-width) solid
+      var(--#{$prefix}avatar-outline-color);
+
+    + .avatar {
+      margin-left: -$avatar-group-offset;
+    }
+  }
+}
+
+// Sizes
+.avatar-lg,
+.avatar-group-lg > .avatar {
+  --#{$prefix}avatar-font-size: #{$avatar-font-size-lg};
+}
+
+.avatar-sm,
+.avatar-group-sm > .avatar {
+  --#{$prefix}avatar-font-size: #{$avatar-font-size-sm};
+}

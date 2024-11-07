@@ -1,0 +1,46 @@
+@import "bootstrap/scss/offcanvas";
+
+.offcanvas {
+  --#{$prefix}offcanvas-title-color: #{$offcanvas-title-color};
+  @include rfs(
+    $offcanvas-title-font-size,
+    --#{$prefix}offcanvas-title-font-size
+  );
+  --#{$prefix}offcanvas-title-font-weight: #{$offcanvas-title-font-weight};
+  --#{$prefix}offcanvas-brand-color: #{$offcanvas-brand-color};
+  @include rfs(
+    $offcanvas-brand-font-size,
+    --#{$prefix}offcanvas-brand-font-size
+  );
+  --#{$prefix}offcanvas-brand-font-weight: #{$offcanvas-brand-font-weight};
+}
+
+.offcanvas-start {
+  border-right-style: $border-style !important;
+}
+
+.offcanvas-end {
+  border-left-style: $border-style !important;
+}
+
+.offcanvas-header {
+  justify-content: space-between;
+}
+
+.offcanvas-body {
+  height: 100%;
+}
+
+.offcanvas-title {
+  color: var(--#{$prefix}offcanvas-title-color);
+  @include font-size(var(--#{$prefix}offcanvas-title-font-size));
+  font-weight: var(--#{$prefix}offcanvas-title-font-weight);
+}
+
+.offcanvas-brand {
+  color: var(--#{$prefix}offcanvas-brand-color);
+  @include font-size(var(--#{$prefix}offcanvas-brand-font-size));
+  font-weight: var(--#{$prefix}offcanvas-brand-font-weight);
+  margin: 0;
+  padding: 0;
+}

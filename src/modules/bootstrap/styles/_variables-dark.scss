@@ -1,0 +1,74 @@
+// Dark color mode variables
+//
+// Custom variables for the `[data-bs-theme="dark"]` theme. Use this as a starting point for your own custom color modes by creating a new theme-specific file like `_variables-dark.scss` and adding the variables you need.
+
+//
+// Global colors
+//
+
+$text-level-1-dark:             $gray-300 !default;
+$text-level-2-dark:             $gray-200 !default;
+$text-level-3-dark:             $gray-100 !default;
+$text-level-4-dark:             $white !default;
+
+$bg-level-1-dark:               $gray-800 !default;
+$bg-level-2-dark:               $gray-700 !default;
+$bg-level-3-dark:               $gray-600 !default;
+$bg-level-4-dark:               $gray-500 !default;
+
+$body-color-dark:               $text-level-1-dark !default;
+$body-bg-dark:                #535353 !default;
+
+$body-secondary-color-dark:     $text-level-2-dark !default;
+$body-secondary-bg-dark:        $bg-level-2-dark !default;
+
+$body-tertiary-color-dark:      $text-level-3-dark !default;
+$body-tertiary-bg-dark:         $bg-level-3-dark !default;
+
+$body-emphasis-color-dark:      $text-level-3-dark !default;
+
+$border-color-dark:             $bg-level-2-dark !default;
+$border-color-translucent-dark: rgba($border-color-dark, 0.25) !default;
+
+$headings-color-dark:           $text-level-3-dark !default;
+
+$link-color-dark:               tint-color($primary, 40%) !default;
+$link-hover-color-dark:         shift-color($link-color-dark, -$link-shade-percentage) !default;
+
+$code-color-dark:               tint-color($code-color, 40%) !default;
+$mark-bg-dark:                  $yellow-600 !default;
+$mark-color-dark:               color-contrast($mark-bg-dark) !default;
+
+//
+// Forms
+//
+
+$form-select-indicator-color-dark:  $body-color-dark !default;
+$form-select-indicator-dark:        url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='#{$form-select-indicator-color-dark}' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/></svg>") !default;
+
+$form-switch-color-dark:            $bg-level-4-dark !default;
+$form-switch-bg-image-dark:         url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$form-switch-color-dark}'/></svg>") !default;
+
+$form-valid-color-dark:             $green !default;
+$form-valid-border-color-dark:      $green !default;
+$form-invalid-color-dark:           $red !default;
+$form-invalid-border-color-dark:    $red !default;
+
+//
+// Accordion
+//
+
+$accordion-icon-color-dark:         $body-color-dark !default;
+$accordion-icon-active-color-dark:  $accordion-icon-active-color !default;
+
+$accordion-button-icon-dark:        url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$accordion-icon-color-dark}'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !default;
+$accordion-button-active-icon-dark: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$accordion-icon-active-color-dark}'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !default;
+
+// Chat
+
+$chat-bubble-bg-dark:               rgba($bg-level-4-dark, $chat-bubble-opacity) !default;
+
+// Menu
+
+$menu-link-hover-bg-dark:           rgba($bg-level-4-dark, $menu-link-hover-bg-opacity) !default;
+$menu-sub-bg-dark:                  rgba($bg-level-4-dark, $menu-sub-bg-opacity) !default;

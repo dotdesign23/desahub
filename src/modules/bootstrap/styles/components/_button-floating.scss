@@ -1,0 +1,30 @@
+.btn-floating {
+  --#{$prefix}btn-floating-bg: #{$btn-floating-bg};
+  --#{$prefix}btn-floating-padding-y: #{$btn-floating-padding-y};
+  --#{$prefix}btn-floating-padding-x: #{$btn-floating-padding-x};
+  --#{$prefix}btn-floating-border-width: #{$btn-floating-border-width};
+  --#{$prefix}btn-floating-border-color: #{$btn-floating-border-color};
+  --#{$prefix}btn-floating-border-radius: #{$btn-floating-border-radius};
+  --#{$prefix}btn-floating-zindex: #{$zindex-btn-floating};
+
+  position: fixed;
+  transform: translateY(-50%);
+  top: 50%;
+  background-color: var(--#{$prefix}btn-floating-bg);
+  padding: var(--#{$prefix}btn-floating-padding-y)
+    var(--#{$prefix}btn-floating-padding-x);
+  border: var(--#{$prefix}btn-floating-border-width) $border-style
+    var(--#{$prefix}btn-floating-border-color);
+  z-index: var(--#{$prefix}btn-floating-zindex);
+}
+
+// Alignments
+.btn-floating-start {
+  left: 0;
+  @include border-end-radius(var(--#{$prefix}btn-floating-border-radius));
+}
+
+.btn-floating-end {
+  right: 0;
+  @include border-start-radius(var(--#{$prefix}btn-floating-border-radius));
+}

@@ -1,0 +1,53 @@
+@import "bootstrap/scss/alert";
+
+.alert {
+  --#{$prefix}alert-icon-dimension: #{$alert-icon-dimension};
+  @include rfs($alert-icon-size, --#{$prefix}alert-icon-size);
+  --#{$prefix}alert-icon-spacer: #{$alert-icon-spacer};
+  --#{$prefix}alert-border-color: transparent;
+  --#{$prefix}alert-border: #{$alert-border-width} #{$border-style}
+    var(--#{$prefix}alert-border-color);
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.alert-content {
+  flex: 1;
+}
+
+.alert-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: self-start;
+  width: var(--#{$prefix}alert-icon-dimension);
+  height: var(--#{$prefix}alert-icon-dimension);
+  margin-right: var(--#{$prefix}alert-icon-spacer);
+  @include icon-size(var(--#{$prefix}alert-icon-size));
+}
+
+// Generate contextual modifier classes for colorizing the alert
+@each $state in map-keys($theme-colors) {
+  .alert-#{$state} {
+    --#{$prefix}alert-bg: var(--#{$prefix}#{$state});
+    --#{$prefix}alert-color: #{color-contrast(map-get($theme-colors, $state))};
+    --#{$prefix}alert-border-color: transparent;
+    --#{$prefix}alert-link-color: var(--#{$prefix}alert-color);
+  }
+
+  .alert-outline-#{$state} {
+    --#{$prefix}alert-bg: transparent;
+    --#{$prefix}alert-color: var(--#{$prefix}#{$state}-text-emphasis);
+    --#{$prefix}alert-border-color: var(--#{$prefix}#{$state}-border-subtle);
+    --#{$prefix}alert-link-color: var(--#{$prefix}alert-color);
+  }
+
+  .alert-subtle-#{$state} {
+    --#{$prefix}alert-bg: var(--#{$prefix}#{$state}-bg-subtle);
+    --#{$prefix}alert-color: var(--#{$prefix}#{$state}-text-emphasis);
+    --#{$prefix}alert-border-color: transparent;
+    --#{$prefix}alert-link-color: var(--#{$prefix}alert-color);
+  }
+}

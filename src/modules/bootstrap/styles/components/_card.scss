@@ -1,0 +1,64 @@
+@import "bootstrap/scss/card";
+
+.card {
+  border-style: $border-style;
+
+  --#{$prefix}card-title-font-size: #{$card-title-font-size};
+  --#{$prefix}card-title-font-weight: #{$card-title-font-weight};
+  --#{$prefix}card-subtitle-font-size: #{$card-subtitle-font-size};
+  --#{$prefix}card-subtitle-font-weight: #{$card-subtitle-font-weight};
+  --#{$prefix}card-icon-color: #{$card-icon-color};
+  @include rfs($card-icon-size, --#{$prefix}card-icon-size);
+  --#{$prefix}card-icon-dimension: #{$card-icon-dimension};
+  --#{$prefix}card-icon-spacer: #{$card-icon-spacer};
+}
+
+.card-header {
+  border-bottom-style: $border-style;
+}
+
+.card-footer {
+  background-color: $component-bg;
+  border-top-style: $border-style;
+}
+
+.card-title {
+  @include font-size(var(--#{$prefix}card-title-font-size));
+  font-weight: var(--#{$prefix}card-title-font-weight);
+}
+
+.card-subtitle {
+  @include font-size(var(--#{$prefix}card-subtitle-font-size));
+  font-weight: var(--#{$prefix}card-subtitle-font-weight);
+}
+
+.card-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .card-title {
+    flex: 1;
+    margin-bottom: 0;
+  }
+}
+
+.card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--#{$prefix}card-icon-color);
+  width: var(--#{$prefix}card-icon-dimension);
+  margin-right: var(--#{$prefix}card-icon-spacer);
+  @include icon-size(var(--#{$prefix}card-icon-size));
+}
+
+.card-header-underline {
+  margin-bottom: calc(-1 * var(--#{$prefix}card-cap-padding-y));
+
+  .nav-link {
+    padding-bottom: calc(
+      var(--#{$prefix}nav-link-padding-y) + var(--#{$prefix}card-cap-padding-y)
+    );
+  }
+}

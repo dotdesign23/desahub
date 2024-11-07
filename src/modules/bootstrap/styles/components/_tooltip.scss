@@ -1,0 +1,27 @@
+@import "bootstrap/scss/tooltip";
+
+.tooltip {
+  --#{$prefix}tooltip-border-width: #{$tooltip-border-width};
+  --#{$prefix}tooltip-border-color: #{$tooltip-border-color};
+}
+
+.tooltip-inner {
+  border: var(--#{$prefix}tooltip-border-width) $border-style
+    var(--#{$prefix}tooltip-border-color);
+}
+
+.bs-tooltip-top .tooltip-arrow::before {
+  border-top-color: var(--#{$prefix}tooltip-border-color);
+}
+
+.bs-tooltip-end .tooltip-arrow::before {
+  border-right-color: var(--#{$prefix}tooltip-border-color);
+}
+
+.bs-tooltip-bottom .tooltip-arrow::before {
+  border-bottom-color: var(--#{$prefix}tooltip-border-color);
+}
+
+.bs-tooltip-start .tooltip-arrow::before {
+  border-left-color: var(--#{$prefix}tooltip-border-color);
+}
