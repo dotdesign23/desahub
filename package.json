@@ -6,7 +6,7 @@
     "dev": "next dev -p 3010",
     "start": "next start -p 3010",
     "lint": "next lint",
-    "build": "prisma generate && next build",
+    "build": "next build",
     "db:reset": "prisma migrate reset --force",
     "db:migrate": "prisma migrate dev --name init",
     "db:generate": "prisma generate",
