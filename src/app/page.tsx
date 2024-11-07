@@ -9,7 +9,7 @@ export default async function LoginPage() {
   if (session) return redirect('/dashboard');
 
   return (
-    <div className="container">
+    <div className="container vstack justify-content-center">
       <div className="row">
         <div className="col">
           <LoginForm />
