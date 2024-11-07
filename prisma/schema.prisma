@@ -15,11 +15,28 @@ enum CorrespondanceStatus {
 }
 
 model Correspondance {
-  key         String               @id @db.Char(36)
-  senderEmail String               @db.Char(100)
-  status      CorrespondanceStatus
-  content     Json
-  createdAt   DateTime             @default(now())
+  key       String               @id @db.Char(36)
+  userEmail String               @db.Char(100)
+  status    CorrespondanceStatus
+  content   Json
+  createdAt DateTime             @default(now())
 
-  @@index([senderEmail], type: Hash)
+  @@index([userEmail], type: Hash)
+}
+
+enum ComplaintStatus {
+  SUBMITTED
+  RESPONDED
+}
+
+model Complaint {
+  key         String          @id @db.Char(36)
+  userEmail   String          @db.Char(100)
+  status      ComplaintStatus
+  content     String          @db.Text
+  response    String?         @db.Text
+  responsedAt DateTime?
+  createdAt   DateTime        @default(now())
+
+  @@index([userEmail], type: Hash)
 }
