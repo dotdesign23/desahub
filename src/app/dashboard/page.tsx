@@ -38,9 +38,12 @@ export default function DashboardPage() {
         <div className="portlet-header">
           <h3 className="portlet-title">Daftar pengaduan</h3>
           <div className="portlet-addon">
-            <button className="btn btn-success btn-widest rounded-pill">
+            <Link
+              href="/dashboard/report"
+              className="btn btn-success btn-widest rounded-pill"
+            >
               Adukan
-            </button>
+            </Link>
           </div>
         </div>
         <div className="portlet-body">

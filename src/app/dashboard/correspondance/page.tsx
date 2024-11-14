@@ -33,7 +33,7 @@ export default async function CorrespondancePage() {
           <h3 className="portlet-title text-center">Informasi kontak</h3>
         </div>
         <div className="portlet-body">
-
+          <input type="tel" className="form-control" placeholder="Masukkan nomor whatsapp" />
         </div>
       </div>
     </>
