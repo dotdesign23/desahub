@@ -14,8 +14,14 @@ enum CorrespondanceStatus {
   FINISHED
 }
 
+enum CorrespondanceType {
+  SURAT_KETERANGAN_DOMILISI
+  SURAT_KETERANGAN_TIDAK_MAMPU
+}
+
 model Correspondance {
   key       String               @id @db.Char(36)
+  type      CorrespondanceType
   userEmail String               @db.Char(100)
   status    CorrespondanceStatus
   content   Json
