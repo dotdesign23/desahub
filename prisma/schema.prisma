@@ -11,6 +11,7 @@ enum CorrespondanceStatus {
   SUBMITTED
   PROCESSED
   FINISHED
+  CANCELED
 }
 
 enum CorrespondanceType {
@@ -26,7 +27,6 @@ model Correspondance {
   status    CorrespondanceStatus
   content   Json
   userEmail String
-  userPhone String
   createdAt DateTime             @default(now())
 
   @@index([userEmail])

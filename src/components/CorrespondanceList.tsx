@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   getCorrespondanceList,
@@ -73,20 +73,25 @@ export default function CorrespondanceList() {
                   <p className="richlist-subtitle">
                     {moment(correspondance.createdAt).fromNow()}
                     {correspondance.status === "SUBMITTED" ? (
-                      <span className="badge badge-primary mx-1">Terkirim</span>
+                      <span className="badge badge-primary mx-1">Diajukan</span>
                     ) : correspondance.status === "PROCESSED" ? (
                       <span className="badge badge-secondary mx-1">
                         Diproses
                       </span>
                     ) : correspondance.status === "FINISHED" ? (
                       <span className="badge badge-success mx-1">Selesai</span>
+                    ) : correspondance.status === "CANCELED" ? (
+                      <span className="badge badge-danger mx-1">Dibatalkan</span>
                     ) : null}
                   </p>
                 </div>
                 <div className="richlist-addon">
-                  <button className="btn btn-primary btn-wide rounded-pill">
+                  <Link
+                    href={`/dashboard/correspondance/view?id=${correspondance.id}`}
+                    className="btn btn-primary btn-wide rounded-pill"
+                  >
                     Lihat
-                  </button>
+                  </Link>
                 </div>
               </div>
             ))}
