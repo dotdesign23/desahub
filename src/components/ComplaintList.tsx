@@ -43,10 +43,10 @@ export default function ComplainList() {
   return (
     <div className="portlet">
       <div className="portlet-header">
-        <h3 className="portlet-title">Surat diajukan</h3>
+        <h3 className="portlet-title">Laporan pengaduan</h3>
         <div className="portlet-addon">
           <Link
-            href="/dashboard/complaint"
+            href="/dashboard/complaint/compose"
             className="btn btn-success btn-widest rounded-pill"
           >
             Ajukan
@@ -67,18 +67,25 @@ export default function ComplainList() {
                   <p className="richlist-subtitle">
                     {moment(complaint.createdAt).fromNow()}
                     {complaint.status === "SUBMITTED" ? (
-                      <span className="badge badge-primary mx-1">Terkirim</span>
+                      <span className="badge badge-primary mx-1">Diajukan</span>
                     ) : complaint.status === "RESPONDED" ? (
                       <span className="badge badge-success mx-1">
                         Ditanggapi
+                      </span>
+                    ) : complaint.status === "CANCELED" ? (
+                      <span className="badge badge-danger mx-1">
+                        Dibatalkan
                       </span>
                     ) : null}
                   </p>
                 </div>
                 <div className="richlist-addon">
-                  <button className="btn btn-primary btn-wide rounded-pill">
+                  <Link
+                    href={`/dashboard/complaint/view?id=${complaint.id}`}
+                    className="btn btn-primary btn-wide rounded-pill"
+                  >
                     Lihat
-                  </button>
+                  </Link>
                 </div>
               </div>
             ))}

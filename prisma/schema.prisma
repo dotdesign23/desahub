@@ -35,6 +35,7 @@ model Correspondance {
 enum ComplaintStatus {
   SUBMITTED
   RESPONDED
+  CANCELED
 }
 
 model Complaint {

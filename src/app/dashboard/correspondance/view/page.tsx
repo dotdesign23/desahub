@@ -29,9 +29,6 @@ export default async function CorrespondanceView({
     string
   >;
 
-  console.log(correspondanceContent);
-  
-
   return (
     <div className="portlet">
       <div className="portlet-header">

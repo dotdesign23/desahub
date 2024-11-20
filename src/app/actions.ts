@@ -287,3 +287,178 @@ export async function getComplaintList(): Promise<GetComplaintListResponse> {
     };
   }
 }
+
+export type SubmitComplaintResponse =
+  | {
+      data?: null;
+      error: {
+        code: "UNAUTHORIZED" | "DATABASE_ERROR";
+        message: string;
+      };
+    }
+  | {
+      data: Pick<Complaint, "id">;
+      error: null;
+    };
+
+export async function submitComplaint(
+  title: string,
+  content: string
+): Promise<SubmitComplaintResponse> {
+  const session = await getServerSession(AUTH_CONFIG);
+
+  if (!session || !session?.user?.email) {
+    return {
+      error: {
+        code: "UNAUTHORIZED",
+        message: "Pengguna belum terautorisasi",
+      },
+    };
+  }
+
+  try {
+    const complaintQuery = await prisma.complaint.create({
+      select: {
+        id: true,
+      },
+      data: {
+        title: title,
+        content: content,
+        status: "SUBMITTED",
+        userEmail: session.user.email,
+      },
+    });
+
+    return {
+      error: null,
+      data: complaintQuery,
+    };
+  } catch (e: unknown) {
+    console.error(e);
+
+    return {
+      error: {
+        code: "DATABASE_ERROR",
+        message: "Terjadi kesalahan pada database",
+      },
+    };
+  }
+}
+
+export type GetComplaintDetailResponse =
+  | {
+      data?: null;
+      error: {
+        code: "UNAUTHORIZED" | "DATABASE_ERROR";
+        message: string;
+      };
+    }
+  | {
+      data: Pick<
+        Complaint,
+        "id" | "title" | "content" | "status" | "createdAt"
+      > | null;
+      error: null;
+    };
+
+export async function getComplaintDetail(
+  id: string
+): Promise<GetComplaintDetailResponse> {
+  const session = await getServerSession(AUTH_CONFIG);
+
+  if (!session || !session?.user?.email) {
+    return {
+      error: {
+        code: "UNAUTHORIZED",
+        message: "Pengguna belum terautorisasi",
+      },
+    };
+  }
+
+  try {
+    const complaintQuery = await prisma.complaint.findUnique({
+      where: {
+        id: id,
+        userEmail: session.user.email,
+      },
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        status: true,
+        createdAt: true,
+      },
+    });
+
+    return {
+      error: null,
+      data: complaintQuery,
+    };
+  } catch (e: unknown) {
+    console.error(e);
+
+    return {
+      error: {
+        code: "DATABASE_ERROR",
+        message: "Terjadi kesalahan pada database",
+      },
+    };
+  }
+}
+
+export type DeleteComplaintResponse =
+  | {
+      data?: null;
+      error: {
+        code: "UNAUTHORIZED" | "DATABASE_ERROR";
+        message: string;
+      };
+    }
+  | {
+      data: Pick<Complaint, "id">;
+      error: null;
+    };
+
+export async function deleteComplaint(
+  id: string
+): Promise<DeleteComplaintResponse> {
+  const session = await getServerSession(AUTH_CONFIG);
+
+  if (!session || !session?.user?.email) {
+    return {
+      error: {
+        code: "UNAUTHORIZED",
+        message: "Pengguna belum terautorisasi",
+      },
+    };
+  }
+
+  try {
+    const correspondanceQuery = await prisma.complaint.update({
+      where: {
+        id: id,
+        userEmail: session.user.email,
+      },
+      data: {
+        status: "CANCELED",
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    return {
+      error: null,
+      data: correspondanceQuery,
+    };
+  } catch (e: unknown) {
+    console.error(e);
+
+    return {
+      error: {
+        code: "DATABASE_ERROR",
+        message: "Terjadi kesalahan pada database",
+      },
+    };
+  }
+}

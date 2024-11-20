@@ -34,13 +34,13 @@ const CorrespondanceSchema = z.object({
   }),
 });
 
-type CorresnpondanceSchemaInputs = z.infer<typeof CorrespondanceSchema>;
+type CorrespondanceSchemaInputs = z.infer<typeof CorrespondanceSchema>;
 
 const CorrespondanceForm = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>();
 
-  const { control, handleSubmit } = useForm<CorresnpondanceSchemaInputs>({
+  const { control, handleSubmit } = useForm<CorrespondanceSchemaInputs>({
     resolver: zodResolver(CorrespondanceSchema),
     defaultValues: {
       name: "",
@@ -54,7 +54,7 @@ const CorrespondanceForm = () => {
     },
   });
 
-  const onSubmit = async (formData: CorresnpondanceSchemaInputs) => {
+  const onSubmit = async (formData: CorrespondanceSchemaInputs) => {
     try {
       setIsLoading(true);
 
