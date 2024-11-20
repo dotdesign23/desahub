@@ -24,6 +24,16 @@ const ComplaintView: React.FC<ComplaintViewProps> = ({ data }) => {
           ) : null}
           {moment(data.createdAt).format("DD MMM YYYY")}
         </p>
+        {data?.attachmentsUrls && data.attachmentsUrls.length > 0 ? (
+          <>
+            <hr />
+            <div className="vstack gap-2">
+              {data.attachmentsUrls.map((url) => (
+                <img key={url} src={url} alt={url} className="img-fluid" />
+              ))}
+            </div>
+          </>
+        ) : null}
         {data.status !== "CANCELED" ? (
           <div className="vstack mt-4">
             <ComplaintCancelForm complaintId={data.id} />

@@ -39,12 +39,13 @@ enum ComplaintStatus {
 }
 
 model Complaint {
-  id        String          @id @default(auto()) @map("_id") @db.ObjectId
-  title     String
-  content   String
-  status    ComplaintStatus
-  userEmail String
-  createdAt DateTime        @default(now())
+  id              String          @id @default(auto()) @map("_id") @db.ObjectId
+  title           String
+  content         String
+  attachmentsUrls String[]
+  status          ComplaintStatus
+  userEmail       String
+  createdAt       DateTime        @default(now())
 
   @@index([userEmail])
 }

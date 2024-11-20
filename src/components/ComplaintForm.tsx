@@ -8,10 +8,12 @@ import { Controller, useForm } from "react-hook-form";
 import { Swal } from "@/services/swal.service";
 import { submitComplaint } from "@/app/actions";
 import { useRouter } from "next/navigation";
+import ImageUpload from "./ImageUpload";
 
 const ComplaintSchema = z.object({
   title: z.string().min(1, { message: "Judul tidak boleh kosong" }),
   content: z.string().min(1, { message: "Konten tidak boleh kosong" }),
+  attachmentUrls: z.array(z.string().url("Format gambar tidak valid")),
 });
 
 type ComplaintSchemaInputs = z.infer<typeof ComplaintSchema>;
@@ -25,6 +27,7 @@ const ComplaintForm = () => {
     defaultValues: {
       title: "",
       content: "",
+      attachmentUrls: [],
     },
   });
 
@@ -32,7 +35,11 @@ const ComplaintForm = () => {
     try {
       setIsLoading(true);
 
-      const actionRes = await submitComplaint(formData.title, formData.content);
+      const actionRes = await submitComplaint(
+        formData.title,
+        formData.content,
+        formData.attachmentUrls
+      );
 
       if (actionRes.error)
         return Swal.fire(
@@ -96,6 +103,42 @@ const ComplaintForm = () => {
                 {invalid && (
                   <span className="invalid-feedback">{error?.message}</span>
                 )}
+              </div>
+            )}
+          />
+          <Controller
+            name="attachmentUrls"
+            control={control}
+            render={({
+              field: { value, onChange, disabled },
+              fieldState: { invalid, error },
+            }) => (
+              <div className="w-100">
+                <label className="form-label">Lampirans</label>
+                <ImageUpload
+                  multiple
+                  storagePath="complaint_imgs"
+                  acceptType={["jpg", "gif", "png"]}
+                  allowNonImageType={false}
+                  inputProps={{ disabled }}
+                  images={
+                    value
+                      ? value.map((dataValue) => ({ dataURL: dataValue }))
+                      : []
+                  }
+                  setImages={(images) => {
+                    onChange(
+                      images.length > 0
+                        ? images.map((image) => image.dataURL)
+                        : []
+                    );
+                  }}
+                />
+                {invalid ? (
+                  <p className="form-text text-danger mt-2 mb-0">
+                    {error?.message}
+                  </p>
+                ) : null}
               </div>
             )}
           />

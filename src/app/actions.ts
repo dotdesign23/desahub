@@ -303,7 +303,8 @@ export type SubmitComplaintResponse =
 
 export async function submitComplaint(
   title: string,
-  content: string
+  content: string,
+  attachmentUrls: string[]
 ): Promise<SubmitComplaintResponse> {
   const session = await getServerSession(AUTH_CONFIG);
 
@@ -324,6 +325,7 @@ export async function submitComplaint(
       data: {
         title: title,
         content: content,
+        attachmentsUrls: attachmentUrls,
         status: "SUBMITTED",
         userEmail: session.user.email,
       },
@@ -356,7 +358,7 @@ export type GetComplaintDetailResponse =
   | {
       data: Pick<
         Complaint,
-        "id" | "title" | "content" | "status" | "createdAt"
+        "id" | "title" | "content" | "attachmentsUrls" | "status" | "createdAt"
       > | null;
       error: null;
     };
@@ -385,6 +387,7 @@ export async function getComplaintDetail(
         id: true,
         title: true,
         content: true,
+        attachmentsUrls: true,
         status: true,
         createdAt: true,
       },
