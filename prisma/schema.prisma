@@ -1,7 +1,6 @@
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
@@ -15,19 +14,22 @@ enum CorrespondanceStatus {
 }
 
 enum CorrespondanceType {
-  SURAT_KETERANGAN_DOMILISI
+  SURAT_KETERANGAN_DOMISILI
   SURAT_KETERANGAN_TIDAK_MAMPU
+  SURAT_KETERANGAN_KEMATIAN
+  SURAT_KETERANGAN_USAHA
 }
 
 model Correspondance {
-  key       String               @id @db.Char(36)
+  id        String               @id @default(auto()) @map("_id") @db.ObjectId
   type      CorrespondanceType
-  userEmail String               @db.Char(100)
   status    CorrespondanceStatus
   content   Json
+  userEmail String
+  userPhone String
   createdAt DateTime             @default(now())
 
-  @@index([userEmail], type: Hash)
+  @@index([userEmail])
 }
 
 enum ComplaintStatus {
@@ -36,13 +38,12 @@ enum ComplaintStatus {
 }
 
 model Complaint {
-  key         String          @id @db.Char(36)
-  userEmail   String          @db.Char(100)
-  status      ComplaintStatus
-  content     String          @db.Text
-  response    String?         @db.Text
-  responsedAt DateTime?
-  createdAt   DateTime        @default(now())
+  id        String          @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  content   String
+  status    ComplaintStatus
+  userEmail String
+  createdAt DateTime        @default(now())
 
-  @@index([userEmail], type: Hash)
+  @@index([userEmail])
 }

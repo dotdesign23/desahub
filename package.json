@@ -7,10 +7,7 @@
     "start": "next start -p 3010",
     "lint": "next lint",
     "build": "prisma generate && next build",
-    "db:reset": "prisma migrate reset --force",
-    "db:migrate": "prisma migrate dev --name init",
-    "db:generate": "prisma generate",
-    "db:refresh": "npm run db:reset && npm run db:migrate && npm run db:generate"
+    "db:generate": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",

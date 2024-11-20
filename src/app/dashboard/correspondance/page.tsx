@@ -1,39 +1,34 @@
+import { CORRESPONDANCE_CONFIG } from "@/configs/correspondance.config";
+import Link from "next/link";
+
 export default async function CorrespondancePage() {
   return (
     <>
       <div className="portlet">
         <div className="portlet-header">
-          <h3 className="portlet-title text-center">Ajukan surat</h3>
+          <h3 className="portlet-title text-center">Pilih surat</h3>
         </div>
         <div className="portlet-body">
-          <form className="vstack gap-3" action="">
-            <input type="text" className="form-control" placeholder="Nama Lengkap" />
-            <input type="text" className="form-control" placeholder="Tempat Lahir" />
-            <input type="date" className="form-control" placeholder="Tanggal Lahir" />
-            <select className="form-select" name="" id="">
-              <option value="">Jenis Kelamin</option>
-              <option value="M">Laki-laki</option>
-              <option value="F">Perempuan</option>
-            </select>
-            <select className="form-select" name="" id="">
-              <option value="">Status Perkawinan</option>
-              <option value="M">Menikah</option>
-              <option value="S">Belum Menikah</option>
-            </select>
-            <select className="form-select" name="" id="">
-              <option value="">Warga Negara</option>
-              <option value="WNI">Warga Negara Indonesia</option>
-              <option value="WNA">Warga Negara Asing</option>
-            </select>
-          </form>
-        </div>
-      </div>
-      <div className="portlet">
-        <div className="portlet-header">
-          <h3 className="portlet-title text-center">Informasi kontak</h3>
-        </div>
-        <div className="portlet-body">
-          <input type="tel" className="form-control" placeholder="Masukkan nomor whatsapp" />
+          <div className="richlist richlist-bordered">
+            {Object.values(CORRESPONDANCE_CONFIG).map((correspondance) => (
+              <div className="richlist-item" key={correspondance.title}>
+                <div className="richlist-content">
+                  <h4 className="richlist-title">{correspondance.title}</h4>
+                  <p className="richlist-paragraph">
+                    {correspondance.description}
+                  </p>
+                </div>
+                <div className="richlist-append">
+                  <Link
+                    className="btn btn-success btn-wider rounded-pill"
+                    href={`/dashboard/correspondance/compose?type=${correspondance.abbr}`}
+                  >
+                    Pilih
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </>
