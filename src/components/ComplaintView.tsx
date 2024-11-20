@@ -24,11 +24,11 @@ const ComplaintView: React.FC<ComplaintViewProps> = ({ data }) => {
           ) : null}
           {moment(data.createdAt).format("DD MMM YYYY")}
         </p>
-        {data?.attachmentsUrls && data.attachmentsUrls.length > 0 ? (
+        {data?.attachmentUrls && data.attachmentUrls.length > 0 ? (
           <>
             <hr />
             <div className="vstack gap-2">
-              {data.attachmentsUrls.map((url) => (
+              {data.attachmentUrls.map((url) => (
                 <img key={url} src={url} alt={url} className="img-fluid" />
               ))}
             </div>

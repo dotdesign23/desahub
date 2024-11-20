@@ -114,7 +114,7 @@ const ComplaintForm = () => {
               fieldState: { invalid, error },
             }) => (
               <div className="w-100">
-                <label className="form-label">Lampirans</label>
+                <label className="form-label">Lampiran</label>
                 <ImageUpload
                   multiple
                   storagePath="complaint_imgs"

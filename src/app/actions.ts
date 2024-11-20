@@ -41,6 +41,9 @@ export async function getCorrespondanceList(): Promise<GetCorrespondanceListResp
       where: {
         userEmail: session.user.email ?? "",
       },
+      orderBy: {
+        id: "desc",
+      },
     });
 
     return {
@@ -74,7 +77,7 @@ export type SubmitCorrespondanceResponse =
 
 export async function submitCorrespondance(
   type: CorrespondanceType,
-  content: Record<string & "whatsappContact", string>
+  content: Record<string & "whatsappContact" & "attachmentUrls", string>
 ): Promise<SubmitCorrespondanceResponse> {
   const session = await getServerSession(AUTH_CONFIG);
 
@@ -270,6 +273,9 @@ export async function getComplaintList(): Promise<GetComplaintListResponse> {
       where: {
         userEmail: session.user.email ?? "",
       },
+      orderBy: {
+        id: "desc",
+      },
     });
 
     return {
@@ -325,7 +331,7 @@ export async function submitComplaint(
       data: {
         title: title,
         content: content,
-        attachmentsUrls: attachmentUrls,
+        attachmentUrls: attachmentUrls,
         status: "SUBMITTED",
         userEmail: session.user.email,
       },
@@ -358,7 +364,7 @@ export type GetComplaintDetailResponse =
   | {
       data: Pick<
         Complaint,
-        "id" | "title" | "content" | "attachmentsUrls" | "status" | "createdAt"
+        "id" | "title" | "content" | "attachmentUrls" | "status" | "createdAt"
       > | null;
       error: null;
     };
@@ -387,7 +393,7 @@ export async function getComplaintDetail(
         id: true,
         title: true,
         content: true,
-        attachmentsUrls: true,
+        attachmentUrls: true,
         status: true,
         createdAt: true,
       },

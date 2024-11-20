@@ -27,7 +27,11 @@ export default async function CorrespondanceView({
   const correspondanceContent = correspondance.content as Record<
     string,
     string
-  >;
+  > &
+    Record<"attachmentUrls", string[]>;
+
+    console.log(correspondanceContent);
+    
 
   return (
     <div className="portlet">
@@ -82,6 +86,17 @@ export default async function CorrespondanceView({
             ) : null}
           </tbody>
         </table>
+        {correspondanceContent.attachmentUrls &&
+        correspondanceContent.attachmentUrls.length > 0 ? (
+          <>
+            <h5 className="text-center mb-3">Lampiran</h5>
+            <div className="vstack gap-2">
+              {correspondanceContent.attachmentUrls.map((url) => (
+                <img key={url} src={url} alt={url} className="img-fluid" />
+              ))}
+            </div>
+          </>
+        ) : null}
         {correspondance.status !== "CANCELED" ? (
           <CorrespondanceCancelForm correspondanceId={correspondance.id} />
         ) : null}

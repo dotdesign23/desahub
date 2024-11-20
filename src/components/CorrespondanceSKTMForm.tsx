@@ -9,6 +9,7 @@ import { Swal } from "@/services/swal.service";
 import { Gender } from "@/configs/correspondance.config";
 import { submitCorrespondance } from "@/app/actions";
 import { useRouter } from "next/navigation";
+import ImageUpload from "./ImageUpload";
 
 const CorrespondanceSchema = z.object({
   name: z.string().min(1, { message: "Nama tidak boleh kosong" }),
@@ -28,6 +29,9 @@ const CorrespondanceSchema = z.object({
   gender: z.string().min(1, { message: "Pilih jenis kelamin yang valid" }),
   occupation: z.string().min(1, { message: "Pekerjaan tidak boleh kosong" }),
   address: z.string().min(1, { message: "Alamat tidak boleh kosong" }),
+  attachmentUrls: z
+    .array(z.string().url("Format gambar tidak valid"))
+    .nonempty({ message: "Sertakan lampiran" }),
   whatsappContact: z.string().regex(/^\+?\d{10,15}$/, {
     message:
       "Nomor WhatsApp harus berupa angka dengan panjang 10-15 digit, diawali dengan '+' jika perlu",
@@ -50,6 +54,7 @@ const CorrespondanceForm = () => {
       gender: "",
       occupation: "",
       address: "",
+      attachmentUrls: [],
       whatsappContact: "",
     },
   });
@@ -233,6 +238,50 @@ const CorrespondanceForm = () => {
                 {invalid && (
                   <span className="invalid-feedback">{error?.message}</span>
                 )}
+              </div>
+            )}
+          />
+          <Controller
+            name="attachmentUrls"
+            control={control}
+            render={({
+              field: { value, onChange, disabled },
+              fieldState: { invalid, error },
+            }) => (
+              <div className="w-100">
+                <label className="form-label">Lampiran</label>
+                <ImageUpload
+                  multiple
+                  storagePath="correspondance_imgs"
+                  acceptType={["jpg", "gif", "png"]}
+                  allowNonImageType={false}
+                  inputProps={{ disabled }}
+                  images={
+                    value
+                      ? value.map((dataValue) => ({ dataURL: dataValue }))
+                      : []
+                  }
+                  setImages={(images) => {
+                    onChange(
+                      images.length > 0
+                        ? images.map((image) => image.dataURL)
+                        : []
+                    );
+                  }}
+                />
+                {invalid ? (
+                  <p className="form-text text-danger mt-2 mb-0">
+                    {error?.message}
+                  </p>
+                ) : null}
+                <p className="form-text mt-2 mb-0">
+                  Silahkan lampirkan
+                  <ul>
+                    <li>Kartu Tanda Penduduk (KTP)</li>
+                    <li>Kartu Keluarga (KK)</li>
+                    <li>Surat Pengantar RT atau RW</li>
+                  </ul>
+                </p>
               </div>
             )}
           />
