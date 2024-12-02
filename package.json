@@ -24,6 +24,7 @@
     "react-hook-form": "^7.53.2",
     "react-images-uploading": "^3.1.7",
     "sass": "^1.80.6",
+    "sweetalert2": "^11.14.5",
     "sweetalert2-react-content": "^5.0.7",
     "uuid": "^11.0.3",
     "zod": "^3.23.8"
