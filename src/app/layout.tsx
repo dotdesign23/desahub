@@ -23,7 +23,7 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono&display=swap"
         />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-        <title>DesaHub</title>
+        <title>Sidosurat</title>
       </head>
       <body>
         <div className="holder">

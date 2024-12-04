@@ -10,7 +10,7 @@ export default function LoginForm() {
   return (
     <div className="portlet">
       <div className="portlet-body vstack gap-2 p-5 text-center">
-        <h1>DesaHub</h1>
+        <h1>Sidosurat</h1>
         <p>
           Aplikasi surat menyurat khusus desa yang memudahkan proses
         administrasi dengan lebih efisien dan transparan
