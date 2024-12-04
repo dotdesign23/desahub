@@ -16,6 +16,10 @@ const CorrespondanceView: React.FC<CorrespondanceViewProps> = ({ content }) => {
         <td>{content.nik}</td>
       </tr>
       <tr>
+        <th>Nomor KK</th>
+        <td>{content.kk}</td>
+      </tr>
+      <tr>
         <th>Jenis jelamin</th>
         <td>{content.gender}</td>
       </tr>

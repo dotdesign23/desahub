@@ -17,6 +17,10 @@ const CorrespondanceSchema = z.object({
     .string()
     .length(16, { message: "NIK harus terdiri dari 16 digit" })
     .regex(/^\d+$/, { message: "NIK hanya boleh berisi angka" }),
+  kk: z
+    .string()
+    .length(16, { message: "KK harus terdiri dari 16 digit" })
+    .regex(/^\d+$/, { message: "KK hanya boleh berisi angka" }),
   birthPlace: z.string().min(1, { message: "Tempat lahir tidak boleh kosong" }),
   birthDate: z
     .string()
@@ -49,6 +53,7 @@ const CorrespondanceForm = () => {
     defaultValues: {
       name: "",
       nik: "",
+      kk: "",
       birthPlace: "",
       birthDate: "",
       gender: "",
@@ -125,6 +130,25 @@ const CorrespondanceForm = () => {
                   {...field}
                   type="text"
                   placeholder="Masukkan NIK"
+                  className={classNames("form-control", {
+                    "is-invalid": invalid,
+                  })}
+                />
+                {invalid && (
+                  <span className="invalid-feedback">{error?.message}</span>
+                )}
+              </div>
+            )}
+          />
+          <Controller
+            name="kk"
+            control={control}
+            render={({ field, fieldState: { invalid, error } }) => (
+              <div className="w-100">
+                <input
+                  {...field}
+                  type="text"
+                  placeholder="Masukkan Nomor KK"
                   className={classNames("form-control", {
                     "is-invalid": invalid,
                   })}

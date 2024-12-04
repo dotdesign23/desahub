@@ -48,7 +48,7 @@ const ComplaintCancelForm: React.FC<ComplaintCancelFormProps> = ({
 
   return (
     <button
-      className="btn btn-subtle-danger rounded-pill w-100"
+      className="btn btn-subtle-danger rounded-pill mt-3 w-100"
       disabled={isLoading}
       onClick={handleDelete}
     >
